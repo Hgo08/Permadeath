@@ -146,7 +146,7 @@ public class DiscordManager {
             if (images != null) {
                 for (String img : images) {
                     if (img != null && !img.isEmpty() && !img.contains("ejemplo.com")) {
-                        diffChannel.sendMessage(img).queue();
+                        changesChannel.sendMessage(img).queue();
                     }
                 }
             }
