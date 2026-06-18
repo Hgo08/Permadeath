@@ -24,6 +24,8 @@ Channels:
   DeathChannel: ''
   # Canal de anuncios como tormenta, beginning, etc...
   Anuncios: ''
+  # Canal donde se anunciarán los aumentos de dificultad
+  CambiosDificultad: ''
 
 # =========================================================
 # Anuncios de Cambios de Dificultad

@@ -122,21 +122,31 @@ public class DiscordManager {
 
         String path = "Cambios." + day;
         if (configuration.contains(path) && configuration.getBoolean(path + ".Enabled", false)) {
+            // Usar canal específico si existe, si no usar el de Anuncios
+            String changesChannelId = configuration.getString("Channels.CambiosDificultad");
+            TextChannel changesChannel = channel; // fallback a Anuncios
+            if (changesChannelId != null && !changesChannelId.isEmpty()) {
+                TextChannel temp = bot.getTextChannelById(changesChannelId);
+                if (temp != null) {
+                    changesChannel = temp;
+                }
+            }
+
             String msg = configuration.getString(path + ".Mensaje");
             if (msg != null && !msg.isEmpty()) {
                 // Dividir el mensaje si supera los 2000 caracteres (límite de Discord), aunque no debería.
                 if (msg.length() > 1999) {
-                    channel.sendMessage(msg.substring(0, 1999)).queue();
-                    channel.sendMessage(msg.substring(1999)).queue();
+                    changesChannel.sendMessage(msg.substring(0, 1999)).queue();
+                    changesChannel.sendMessage(msg.substring(1999)).queue();
                 } else {
-                    channel.sendMessage(msg).queue();
+                    changesChannel.sendMessage(msg).queue();
                 }
             }
             java.util.List<String> images = configuration.getStringList(path + ".Imagenes");
             if (images != null) {
                 for (String img : images) {
                     if (img != null && !img.isEmpty() && !img.contains("ejemplo.com")) {
-                        channel.sendMessage(img).queue();
+                        diffChannel.sendMessage(img).queue();
                     }
                 }
             }
