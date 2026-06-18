@@ -266,7 +266,8 @@ public class NMSHandlerImpl implements NMSHandler {
         if ((type != EntityType.BAT && type != EntityType.COD && type != EntityType.SALMON && type != EntityType.SQUID && type != EntityType.PUFFERFISH && type != EntityType.TROPICAL_FISH)
                         || (reason != CreatureSpawnEvent.SpawnReason.SPAWNER_EGG || Math.random() <= 0.02004008016)) {
             net.minecraft.world.entity.EntityType<?> nms = convertBukkitToNMS(type);
-            return nms.spawn(((CraftWorld) Objects.requireNonNull(location.getWorld())).getHandle(), new BlockPos(location.getBlockX(), location.getBlockY(), location.getBlockZ()), MobSpawnType.NATURAL, reason).getBukkitEntity();
+            net.minecraft.world.entity.Entity nmsEntity = nms.spawn(((CraftWorld) Objects.requireNonNull(location.getWorld())).getHandle(), new BlockPos(location.getBlockX(), location.getBlockY(), location.getBlockZ()), MobSpawnType.NATURAL, reason);
+            return nmsEntity != null ? nmsEntity.getBukkitEntity() : null;
         }
         return null;
     }

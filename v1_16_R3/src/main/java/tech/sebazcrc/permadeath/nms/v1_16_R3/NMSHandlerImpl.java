@@ -323,7 +323,8 @@ public class NMSHandlerImpl implements NMSHandler {
                         || (reason != CreatureSpawnEvent.SpawnReason.SPAWNER_EGG || Math.random() <= 0.02004008016)) {
 
             EntityTypes<?> nms = convertBukkitToNMS(type);
-            return nms.spawnCreature(((CraftWorld) Objects.requireNonNull(location.getWorld())).getHandle(), null, null, null, new BlockPosition(location.getBlockX(), location.getBlockY(), location.getBlockZ()), EnumMobSpawn.NATURAL, false, false, reason).getBukkitEntity();
+            net.minecraft.server.v1_16_R3.Entity nmsEntity = nms.spawnCreature(((CraftWorld) Objects.requireNonNull(location.getWorld())).getHandle(), null, null, null, new BlockPosition(location.getBlockX(), location.getBlockY(), location.getBlockZ()), EnumMobSpawn.NATURAL, false, false, reason);
+            return nmsEntity != null ? nmsEntity.getBukkitEntity() : null;
         }
 
         return null;

@@ -99,6 +99,8 @@ Toggles:
   # 60 Si deseas que sean lo más parecidos a PermaDeath
   Quantum-Explosion-Power: 60
   Gatos-Supernova:
+    # Probabilidad de que el gato explote (0.0 a 1.0). Si es 0.5, la mitad explota y la otra desaparece sin avisar.
+    Probabilidad-Explosion: 1.0
     # ¿Quieres que su explosión destruya bloques o solo haga daño?
     # true: Destruir
     # false: No Destruir

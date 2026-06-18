@@ -1059,7 +1059,7 @@ public class SpawnListener implements Listener {
         boolean canContinue = true;
 
         if (Bukkit.getOnlinePlayers().size() == 0) canContinue = false;
-        if (gatosSupernova.size() > 2) canContinue = false;
+        //if (gatosSupernova.size() > 2) canContinue = false; // Límite removido a petición del usuario
 
         if (!canContinue) {
             cat.remove();
@@ -1070,18 +1070,23 @@ public class SpawnListener implements Listener {
         final Location loc = cat.getLocation().clone();
         final Chunk chunk = loc.getChunk();
 
+        // El gato desaparece instantáneamente
+        cat.remove();
+
+        double prob = plugin.getConfig().getDouble("Toggles.Gatos-Supernova.Probabilidad-Explosion", 1.0);
+        if (Math.random() > prob) {
+            // No explota, simplemente se elimina sin poner mensaje
+            gatosSupernova.remove(cat);
+            return;
+        }
+
         if (!chunk.isForceLoaded()) chunk.setForceLoaded(true);
         if (!chunk.isLoaded()) chunk.load();
 
-        Bukkit.broadcastMessage(TextUtils.format("&cUn gato supernova va a explotar en: " + loc.getBlockX() + " " + loc.getBlockY() + " " + loc.getBlockZ() + " (" + cat.getWorld().getName() + ")."));
+        Bukkit.broadcastMessage(TextUtils.format("&cUn gato supernova va a explotar en: " + loc.getBlockX() + " " + loc.getBlockY() + " " + loc.getBlockZ() + " (" + w.getName() + ")."));
         Bukkit.getServer().getScheduler().runTaskLater(plugin, new Runnable() {
             @Override
             public void run() {
-                if (cat == null) {
-                    if (chunk.isForceLoaded()) chunk.setForceLoaded(false);
-                    if (chunk.isLoaded()) chunk.unload();
-                    return;
-                }
                 if (!gatosSupernova.contains(cat)) {
                     if (chunk.isForceLoaded()) chunk.setForceLoaded(false);
                     if (chunk.isLoaded()) chunk.unload();
@@ -1092,9 +1097,8 @@ public class SpawnListener implements Listener {
                 boolean breakBlocks = plugin.getConfig().getBoolean("Toggles.Gatos-Supernova.Destruir-Bloques");
                 boolean placeFire = plugin.getConfig().getBoolean("Toggles.Gatos-Supernova.Fuego");
 
-                w.createExplosion(loc, power, placeFire, breakBlocks, cat);
+                w.createExplosion(loc, power, placeFire, breakBlocks, null);
                 gatosSupernova.remove(cat);
-                cat.remove();
 
                 if (chunk.isForceLoaded()) chunk.setForceLoaded(false);
                 if (chunk.isLoaded()) chunk.unload();

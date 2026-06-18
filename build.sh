@@ -1,3 +1,4 @@
+set -e
 docker run --rm \
   --user "$(id -u):$(id -g)" \
   -v "$HOME/.m2":/var/maven/.m2 \
