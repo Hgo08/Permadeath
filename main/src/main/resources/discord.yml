@@ -16,6 +16,8 @@ Token: ''
 Status: '¡Permadeath!'
 # Nombre de tu servidor
 ServerName: 'Mi Permadeath'
+# Notificar en discord cuando el plugin se enciende o apaga
+Notify-Status: true
 # Configura los canales
 Channels:
   # Ingresa el ID del canal donde deben enviarse los mensajes de muerte.

@@ -70,7 +70,9 @@ public class DiscordManager {
                 if (s == null) return;
                 TextChannel channel = bot.getTextChannelById(s);
                 if (channel == null) return;
-                sendEmbed(channel, buildEmbed("Permadeath", Color.GREEN, null, null, null, ":gear: Plugin encendido."));
+                if (configuration.getBoolean("Notify-Status", true)) {
+                    sendEmbed(channel, buildEmbed("Permadeath", Color.GREEN, null, null, null, ":gear: Plugin encendido."));
+                }
             } catch (Exception ignored) {
             }
         } else {
@@ -91,7 +93,9 @@ public class DiscordManager {
         TextChannel channel = bot.getTextChannelById(s);
 
         if (channel == null) return;
-        sendEmbed(channel, buildEmbed("Permadeath", Color.RED, null, null, null, ":gear: Plugin desactivado."));
+        if (configuration.getBoolean("Notify-Status", true)) {
+            sendEmbed(channel, buildEmbed("Permadeath", Color.RED, null, null, null, ":gear: Plugin desactivado."));
+        }
     }
 
     public void onDeathTrain(String msg) {
@@ -132,7 +136,7 @@ public class DiscordManager {
                 null,
                 null,
                 "https://mineskin.eu/headhelm/" + off.getName() + "/100.png");
-        b.setAuthor("Permadeath", "https://twitter.com/SebazCRC", "https://www.spigotmc.org/data/avatars/l/429/429856.jpg?1692799382");
+        b.setAuthor("Permadeath", "https://x.com/PermadeathSMP", "https://pbs.twimg.com/profile_images/1242562111340974080/nXbVroKO_400x400.png");
         b.addField("\uD83D\uDCC5 Fecha", date, true);
         b.addField("\uD83D\uDC80 Razón", cause, true);
         if (!isAFKBan) b.addField("\uD83E\uDDED Coordenadas", playerLoc, true);
