@@ -105,6 +105,9 @@ public class DateManager {
                 manager.setLastDay(getDay());
             }
         }
+        
+        // Forzar el evento de Discord para anunciar el nuevo día
+        DiscordPortal.onDayChange();
     }
 
     public long getDay() {

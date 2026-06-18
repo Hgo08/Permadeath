@@ -116,6 +116,31 @@ public class DiscordManager {
 
         if (channel == null) return;
         sendEmbed(channel, buildEmbed("Permadeath", Color.GREEN, null, null, null, ":alarm_clock: Han avanzado al día " + instance.getDay()));
+
+        long day = instance.getDay();
+        if (!configuration.getBoolean("Habilitar-Anuncios-Dificultad", true)) return;
+
+        String path = "Cambios." + day;
+        if (configuration.contains(path) && configuration.getBoolean(path + ".Enabled", false)) {
+            String msg = configuration.getString(path + ".Mensaje");
+            if (msg != null && !msg.isEmpty()) {
+                // Dividir el mensaje si supera los 2000 caracteres (límite de Discord), aunque no debería.
+                if (msg.length() > 1999) {
+                    channel.sendMessage(msg.substring(0, 1999)).queue();
+                    channel.sendMessage(msg.substring(1999)).queue();
+                } else {
+                    channel.sendMessage(msg).queue();
+                }
+            }
+            java.util.List<String> images = configuration.getStringList(path + ".Imagenes");
+            if (images != null) {
+                for (String img : images) {
+                    if (img != null && !img.isEmpty() && !img.contains("ejemplo.com")) {
+                        channel.sendMessage(img).queue();
+                    }
+                }
+            }
+        }
     }
 
     public void banPlayer(OfflinePlayer off, boolean isAFKBan) {
