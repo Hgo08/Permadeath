@@ -132,21 +132,43 @@ public class DiscordManager {
                 }
             }
 
-            String msg = configuration.getString(path + ".Mensaje");
-            if (msg != null && !msg.isEmpty()) {
-                // Dividir el mensaje si supera los 2000 caracteres (límite de Discord), aunque no debería.
-                if (msg.length() > 1999) {
-                    changesChannel.sendMessage(msg.substring(0, 1999)).queue();
-                    changesChannel.sendMessage(msg.substring(1999)).queue();
-                } else {
-                    changesChannel.sendMessage(msg).queue();
+            if (configuration.contains(path + ".Bloques")) {
+                for (java.util.Map<?, ?> map : configuration.getMapList(path + ".Bloques")) {
+                    String msg = (String) map.get("Mensaje");
+                    if (msg != null && !msg.isEmpty()) {
+                        if (msg.length() > 1999) {
+                            changesChannel.sendMessage(msg.substring(0, 1999)).queue();
+                            changesChannel.sendMessage(msg.substring(1999)).queue();
+                        } else {
+                            changesChannel.sendMessage(msg).queue();
+                        }
+                    }
+                    java.util.List<String> images = (java.util.List<String>) map.get("Imagenes");
+                    if (images != null) {
+                        for (String img : images) {
+                            if (img != null && !img.isEmpty() && !img.contains("ejemplo.com")) {
+                                changesChannel.sendMessage(img).queue();
+                            }
+                        }
+                    }
                 }
-            }
-            java.util.List<String> images = configuration.getStringList(path + ".Imagenes");
-            if (images != null) {
-                for (String img : images) {
-                    if (img != null && !img.isEmpty() && !img.contains("ejemplo.com")) {
-                        changesChannel.sendMessage(img).queue();
+            } else {
+                String msg = configuration.getString(path + ".Mensaje");
+                if (msg != null && !msg.isEmpty()) {
+                    // Dividir el mensaje si supera los 2000 caracteres (límite de Discord), aunque no debería.
+                    if (msg.length() > 1999) {
+                        changesChannel.sendMessage(msg.substring(0, 1999)).queue();
+                        changesChannel.sendMessage(msg.substring(1999)).queue();
+                    } else {
+                        changesChannel.sendMessage(msg).queue();
+                    }
+                }
+                java.util.List<String> images = configuration.getStringList(path + ".Imagenes");
+                if (images != null) {
+                    for (String img : images) {
+                        if (img != null && !img.isEmpty() && !img.contains("ejemplo.com")) {
+                            changesChannel.sendMessage(img).queue();
+                        }
                     }
                 }
             }

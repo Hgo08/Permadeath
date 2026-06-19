@@ -112,6 +112,8 @@ public final class Main extends JavaPlugin implements Listener {
 
         prefix = TextUtils.format((getConfig().contains("Prefix") ? getConfig().getString("Prefix") : "&cPermadeath &7➤ &f"));
 
+        AsyncExplosion.init(getNmsHandler());
+
         tickAll();
 
         this.playTime = getConfig().getInt("DontTouch.PlayTime");
@@ -869,6 +871,13 @@ public final class Main extends JavaPlugin implements Listener {
         c.set("Toggles.Gatos-Supernova.Destruir-Bloques", true);
         c.set("Toggles.Gatos-Supernova.Fuego", true);
         c.set("Toggles.Gatos-Supernova.Explosion-Power", 200);
+        c.set("Toggles.Gatos-Supernova.OptimizedAsyncExplosions", true);
+        c.set("Toggles.Gatos-Supernova.Snapshot-Radius", 80);
+        c.set("Toggles.Gatos-Supernova.Bloques-Por-Tick", 2000);
+        c.set("Toggles.Gatos-Supernova.Skip-Unloaded-Chunks", true);
+        c.set("Toggles.Gatos-Supernova.Max-Processing-Distance", 256.0);
+        c.set("Toggles.Gatos-Supernova.Dynamic-Batch-Size", true);
+        c.set("Toggles.Gatos-Supernova.Debug-Logging", false);
         c.set("Server-Messages.coords-msg-enable", true);
         c.set("TotemFail.Enable", true);
         c.set("TotemFail.Medalla", "&7¡El jugador %player% ha usado su medalla de superviviente!");

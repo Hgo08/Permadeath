@@ -205,10 +205,19 @@ public class PDCCommand implements CommandExecutor {
                         player.sendMessage(TextUtils.format("&fVersión del Servidor: &a" + VersionManager.getFormattedVersion() + " &b(" + VersionManager.getVersion() + ")"));
                         player.sendMessage(TextUtils.format("&fMundo de overworld: &a" + instance.world.getName()));
                         player.sendMessage(TextUtils.format("&fMundo de end: &a" + instance.endWorld.getName()));
+                        player.sendMessage(TextUtils.format("&fExplosion debug logging: &a" + instance.getConfig().getBoolean("Toggles.Gatos-Supernova.Debug-Logging", false)));
                         player.sendMessage(TextUtils.format(""));
                         player.sendMessage(TextUtils.format("&eEsta información es brindada en nuestro discord, &f&nhttps://discord.gg/w58wzrcJU8"));
 
-                        //player.sendMessage(instance.format("&"));
+                    } else if (args[1].equalsIgnoreCase("explosiondebug")) {
+                        boolean debug = !instance.getConfig().getBoolean("Toggles.Gatos-Supernova.Debug-Logging", false);
+                        instance.getConfig().set("Toggles.Gatos-Supernova.Debug-Logging", debug);
+                        instance.saveConfig();
+                        player.sendMessage("§a[Permadeath-Explosion] Debug-Logging cambiado a: " + debug);
+
+                    } else if (args[1].equalsIgnoreCase("explosionconfig")) {
+                        instance.reloadConfig();
+                        player.sendMessage("§a[Permadeath-Explosion] Configuración de explosión recargada desde el disco.");
 
                     } else if (args[1].equalsIgnoreCase("generate_beginning")) {
 

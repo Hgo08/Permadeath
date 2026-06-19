@@ -107,6 +107,20 @@ Toggles:
     Destruir-Bloques: true
     # ¿Quieres que dejen fuego? (provoca lag)
     Fuego: false
+    # ¿Quieres usar explosiones optimizadas y asíncronas para evitar congelar el servidor? (Altamente recomendado)
+    OptimizedAsyncExplosions: true
+    # Radio máximo en bloques a escanear chunks para la explosión (menor radio = cero lag inicial)
+    Snapshot-Radius: 80
+    # Lote de bloques a romper por tick (menor número = destrucción más fluida)
+    Bloques-Por-Tick: 2000
+    # Evitar procesar/modificar bloques en chunks no cargados (evita tirones al cargar chunks)
+    Skip-Unloaded-Chunks: true
+    # Distancia máxima desde el centro en la que se procesarán bloques
+    Max-Processing-Distance: 256.0
+    # Adaptar dinámicamente el tamaño del lote por tick según el rendimiento
+    Dynamic-Batch-Size: true
+    # Mostrar logs detallados de rendimiento de explosiones en consola
+    Debug-Logging: false
     # Esta opción indica el poder de explosión de los gatos, recomiendo 10 para servers poco potentes, pero lo normal en Permadeath es 200
     Explosion-Power: 200
 # Mensajes generales

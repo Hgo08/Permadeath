@@ -315,4 +315,16 @@ public class NMSHandlerImpl implements NMSHandler {
     public void addMushrooms() {
         // TODO
     }
+
+    @Override
+    public float getBlastResistance(org.bukkit.Material material) {
+        if (!material.isBlock()) return 0.0f;
+        net.minecraft.world.level.block.Block nmsBlock = org.bukkit.craftbukkit.v1_20_R1.util.CraftMagicNumbers.getBlock(material);
+        return nmsBlock != null ? nmsBlock.getExplosionResistance() : 0.0f;
+    }
+
+    @Override
+    public int getMinHeight(org.bukkit.World world) {
+        return world.getMinHeight();
+    }
 }

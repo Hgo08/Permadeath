@@ -17,4 +17,8 @@ public interface NMSHandler {
     Entity spawnCustomGhast(org.bukkit.Location location, CreatureSpawnEvent.SpawnReason reason, boolean isEnder);
 
     void addMushrooms();
+
+    float getBlastResistance(org.bukkit.Material material);
+
+    int getMinHeight(org.bukkit.World world);
 }

@@ -37,16 +37,16 @@ Cambios:
   10:
     Enabled: true
     Mensaje: |
-      **¡AUMENTO DE DIFICULTAD (Día 10-19)!**
+      # **¡AUMENTO DE DIFICULTAD (Día 10)!**
       - ¡Todas las arañas ahora tienen efectos de poción! entre 1 y 3 efectos aplicados: Velocidad 3, Regeneración 4, Fuerza 4, Salto 4, Brillo, Invisibilidad, Caida lenta y Resistencia 3
       - Hay el doble de Mobs
       - Mínimo 4 jugadores para pasar la noche
     Imagenes:
-      - 'https://static.wikia.nocookie.net/permadeath/images/4/48/Primero_cambio_de_dificultad.jpg/revision/latest?cb=20200513062111&path-prefix=es'
+      - 'https://i.imgur.com/89heJ62.png'
   20:
     Enabled: true
     Mensaje: |
-      **¡AUMENTO DE DIFICULTAD (Día 20-29)!**
+      # **¡AUMENTO DE DIFICULTAD (Día 20)!**
       9 muertes no son nada... ¡DOLOR, SUFRIMIENTO... PERMANENTE! ¡MORID TODOS!
       - Todos los drops de pacíficos eliminados.
       - Ciclo de día y noche constante, no puedes saltar la noche.
@@ -57,58 +57,222 @@ Cambios:
       - Ya no puedes ayudar o ser ayudado por jugadores externos a tu equipo.
       - Todas las arañas aparecen ahora con un esqueleto encima de 1 a 5 clases.
     Imagenes:
-      - 'https://ejemplo.com/tu-imagen-dia20.png'
+      - 'https://i.imgur.com/0n29wXQ.png'
+      - 'https://i.imgur.com/GEUpfXl.png'
+      - 'https://i.imgur.com/UsUGTWW.png'
+  25:
+    Enabled: true
+    Bloques:
+      - Mensaje: |
+          # **¡AUMENTO DE DIFICULTAD (Día 25)!**
+          ¡DEATH TRAIN HYPE! ¡RESET DEL DEATH TRAIN!
+          - Cada 25 días el Death Train se vuelve más peligroso la cantidad de horas de tormenta en X día se reinicia como si fuese el día 0.
+          - Durante el Death Train ahora todos los mobs tienen Fuerza I (1), Velocidad I (1) y Resistencia I (1)
+      - Imagenes:
+          - 'https://i.imgur.com/QsxGeQB.png'
+      - Mensaje: |
+          ¡AUMENTO DE DIFICULTAD SORPRESA!
+          - Todas las arañas tienen ahora 5 efectos.
+          - Todos los Ravagers tiene ahora Fuerza II (2) y Speed I (1), los tótems ahora los sueltan con un 20%.
+          - GIGASLIMES: Los slimes solo spwanean de tamaño 15 con doble de vida.
+          - GIGA MAGMACUBES: Los magmacubes solo spawnean de tamaño 16 .
+          - GHAST DEMONÍACOS: Los ghats se spawnean con 40 a 60 de vida y sus bolas de fuego pueden ser de explosionpwer: 3, 4 y 5. 
+      - Imagenes:
+          - 'https://i.imgur.com/Qu2a3C2.png'
+      - Mensaje: |
+          ¡ARMADURA DE NETHERITE!
+          - Puedes obtener una mejor armadura matando GIGASLIMES, GIGA MAGMACUBES, GHAST DEMONÍACOS y ARAÑAS DE CUEVA.
+          - Estos enemigos son extremadamente peligrosos.
+      - Imagenes:
+          - 'https://i.imgur.com/fWl1Gd0.png'
+      
   30:
     Enabled: true
+    Bloques:
+      - Mensaje: |
+          # **¡AUMENTO DE DIFICULTAD (Día 30)!**
+          Morid. :)
+
+          - Esqueleto Guerrero: Esqueleto Full Diamante, Full Protection IV (4) con 20 corazones. 
+          - Esqueleto Infernal: Esqueleto Full Hierro, Diamond Axe con Fire Aspect X (10) y 20 corazones. 
+          - Esqueleto Asesino: Esqueleto Full Oro, Crossbow con Sharpness XXV (25), Speed II (2) y 20 corazones. Esqueleto Táctico
+          - Wither Skeleton Full Mayas, Bow con Punch XXX (30) y Power XXV (25), con 20 corazones. 
+          - Esqueleto Pesadilla: Wither Skeleton Full Cuero, Bow
+      - Imagenes:
+          - 'https://i.imgur.com/Xps0MKt.png'
+      - Mensaje: |
+          **¡AUMENTO DE DIFICULTAD!**
+          - Ya no se puede obtener la armadura de Netherite
+          - Ya no se pueden usar las Zonas Comunitarias a excepción del SPAWN.
+          - Los Tótems tienen un 99% de probabilidades de activarse y 1% de fallar.
+          - La batalla contra la dragona está completamente modificada.
+          - Los Mobs Especiales ahora tienen nombre especial.
+          - Los Calamares son ahora Guardianes con Speed II (2).
+          - Los Murciélagos son ahora Blazes de Resistencia II (2).
+          - Los Creepers son ahora Eléctricos. Los Pillagers son ahora invisibles y tienen ballestas de Quick Charge X (10).
+          - Los Esqueletos son ahora Esqueletos con CLASE y llevan en la mano izquierda flechas de Daño II (2).
+          - Los Pigmans tienen ahora armadura de diamante. Los Iron Golems tienen ahora Velocidad IV (4).
+          - Los Endermans tienen ahora Fuerza II (2).
+          - Los Silverfish tienen 5 efectos de la misma lista que las Arañas.
+          - Los Shulkers son Shulkers Explosivos y dropean con 20% de probabilidad una Shulker Shell.
+          - Aparecen Ender Ghasts y Ender Creepers en el End.
+      - Imagenes:
+          - 'https://i.imgur.com/oTmSf5v.png'
+  35:
+    Enabled: true
     Mensaje: |
-      **¡AUMENTO DE DIFICULTAD (Día 30-39)!**
-      Morid. :)
-      - ESQUELETOS MEJORADOS (Guerrero, Infernal, Asesino, Táctico, Pesadilla).
-      - Ya no se puede obtener la armadura de Netherite.
-      - Ya no se pueden usar las Zonas Comunitarias a excepción del SPAWN.
-      - Los Tótems tienen un 99% de probabilidades de activarse y 1% de fallar.
-      - La batalla contra la dragona está completamente modificada.
-      - Mobs especiales: Calamares->Guardianes Speed 2, Murciélagos->Blazes, Creepers->Eléctricos, Pillagers->Invisibles, Esqueletos->Con Clase, Pigmans->Diamante, Iron Golems->Speed 4, Endermans->Fuerza 2, Silverfish->5 Efectos, Shulkers->Explosivos. Aparecen Ender Ghasts y Ender Creepers.
+      # **¡ANUNCIO DE DIFICULTAD PARA EL DIA 40!**
+      - Los Tótems se activarán con un 3% de probabilidad de fallar.
     Imagenes:
-      - 'https://ejemplo.com/tu-imagen-dia30.png'
+      - 'https://i.imgur.com/xJeZoT5.png'
+  39:
+    Enabled: true
+    Mensaje: |
+      # **¡ANUNCIO DE DIFICULTAD PARA EL DIA 40!**
+      - Todos los jugadores perderán 5 Slots del inventario en el dia 40.
+    Imagenes:
+      - 'https://i.imgur.com/C5sDwvh.png'
   40:
     Enabled: true
-    Mensaje: |
-      **¡AUMENTO DE DIFICULTAD (Día 40-49)!**
-      Bienvenidos al mismísimo INFIERNO.
-      - Se habilita el fuego amigo. Se eliminan 5 slots del inventario.
-      - Se establecen nuevas normas para evitar jugar de forma sedentaria.
-      - Ya no se puede hacer stripmining ni branchmining.
-      - Ya no se pueden craftear antorchas. Ya no se generan estructuras nuevas.
-      - Todos los jugadores pierden 4 contenedores de vida.
-      - Tótems tienen un 3% de fallar y se consumen 2.
-      - Aparece el Permadeath Demon.
-      - Phantoms llevan Esqueletos.
-      - Brujas Imposibles, Vindicators con fuerza, y muchos más reemplazos locos de mobs.
-      - Añadida la Super Golden Apple+ y Hyper Golden Apple+.
-      - Gatos son ahora Supernova (arrasan bases).
-      - The Beginning abierto. Pigman Jockeys.
-    Imagenes:
-      - 'https://ejemplo.com/tu-imagen-dia40.png'
+    Bloques:
+      - Mensaje: |
+          # **¡AUMENTO DE DIFICULTAD (Día 40)!**
+          **Bienvenidos al mismísimo INFIERNO.**
+      - Imagenes:
+          - 'https://i.imgur.com/M5rhRXb.png'
+      - Mensaje: |
+          **AUMENTO DE DIFICULTAD**
+          Todos los jugadores tienen 1/10000 de recibir 1 minuto de efecto de CEGUERA si están bajo la lluvia.
+          El Death Train ahora es más peligroso que nunca.
+      - Imagenes:
+          - 'https://i.imgur.com/bSwZnxM.png'
+      - Mensaje: |
+          **¡NUEVO ÍTEM!**
+          La Super Golden Apple+ proporciona 5 minutos de Heath Boost I (1), puede comerse siempre que se quiera pero su efecto no es stackable.
+      - Imagenes:
+          - 'https://i.imgur.com/rdunofM.png'
+      - Mensaje: |
+          **¡NUEVO ÍTEM!**
+          La Hyper Golden Apple+ solo puede ser consumida 1 vez y proporciona 2 contenedores permanentes de vida adicional.
+      - Imagenes:
+          - 'https://i.imgur.com/3VIhtQO.png'
+      - Mensaje: |
+          **¡AUMENTO DE DIFICULTAD!** 
+          Los gatos son ahora Gatos Supernova.Esta imagen se usó para el duodécimo cambio de dificultad.
+          Su poder de explosión es capaz de arrasar una base entera.
+      - Imagenes:
+          - 'https://i.imgur.com/i7BkzHz.png'
+      - Mensaje: |
+          **¿Compañeros?**
+          Todos lo jugadores tienen derecho ahora a un compañero de equipo.
+          La norma es: Desde tu cama, la cama de tu vecino más cercana se convierte en tu compañero. (No puedes compartir ítems con tu compañero pero puedes salvarle, hacer actividades con él).
+      - Imagenes:
+          - 'https://i.imgur.com/rfcEkoc.png'
+      - Mensaje: |
+          **¡NUEVO ÍTEM, RELIQUIA DEL FIN!**
+          Esta Reliquia permite recuperar los 5 slots que se han perdido.
+          Se debe llevar siempre en el inventario.
+          Ahora se pueden descraftear Shulker Boxes para obtener Shulker Shells. 
+      - Imagenes:
+          - 'https://i.imgur.com/5mMx1Rc.png'
+      - Mensaje: |
+          **¡AUMENTO DE DIFICULTAD!**
+          Se ha generado en algún lugar del mundo un portal al 'The Beginning'.
+          Se recomienda a los jugadores buscarlo en grupo antes de 10 días.
+      - Imagenes:
+          - 'https://i.imgur.com/Ig6lHmP.png'
+      - Mensaje: |
+          **¡AUMENTO DE DIFICULTAD!**
+          Los Ghasts Demoníacos son ahora un 75% de las veces Demonios Flotantes.
+          Las bolas de los Demonios Flotantes dan Levitación 50 y Wither V (5) 20s. No explotan y o hacen daño.
+      - Imagenes:
+          - 'https://i.imgur.com/NqtSibI.png'
+      - Mensaje: |
+          **¡PIGMAN JOCKEYS!**
+          - Pigman sobre Cerdo: El Cerdo tiene 5 efectos como las arañas, 20 de daño y armadura rosa.
+          - Pigman sobre Abeja: La Abeja tiene 50 corazones, el Pigman armadura amarilla y 6 de daño base.
+          - Pigman sobre Ghast: El Ghast no es peligroso pero se tpea el 80% de las veces, el Pigman tiene Velocidad IV (4) y 4 de daño base.
+          - Pigman sobre Magma Cube: Tiene medio corazón, inmunes a proyectiles.
+      - Imagenes:
+          - 'https://i.imgur.com/D9DPTDV.png'
+      - Mensaje: |
+          **¡MÁS DOLOR! ¡MÁS SUFRIMIENTO!**
+          - Jess la Emperatriz: 120 corazones. Drop: 2 manzanas doradas.
+          - Carlos el Esclavo: 75 corazones. Full Mayas Protección II (2). Espada de madera Empuje X (10). Drop: 32 lingotes de oro.
+          - Ultra Ravager: 250 corazones. Velocidad II (2) y Fuerza II (2). Drop: 1 tótem.
+      - Imagenes:
+          - 'https://i.imgur.com/5H1MlOw.png'
   50:
     Enabled: true
-    Mensaje: |
-      **¡AUMENTO DE DIFICULTAD (Día 50-59)!**
-      El día 50 es un día importante.
-      - Gatos Supernova son ahora Gatos Galácticos (invocan mobs al morir).
-      - Ya no se pueden craftear Cubos de Lava y Agua.
-      - Tótems fallan 5%. Raids dan Hero of the Village 5 min.
-      - Picar bloques quita medio corazón. Fundir ores da Pepitas.
-      - Te ahogas 5 veces más rápido. Soulsand da Slowness 2.
-      - Esqueletos suben de nivel. Armadura de Netherite Infernal.
-      - Death Train ahora aumenta 30 min cada día.
-      - Aparecen GIGANTES en Plains.
-    Imagenes:
-      - 'https://ejemplo.com/tu-imagen-dia50.png'
+    Bloques:
+      - Mensaje: |
+          # **¡AUMENTO DE DIFICULTAD (Día 50)!**
+          Miaurid
+      - Imagenes:
+          - 'https://i.imgur.com/hjNhlzU.png'
+      - Mensaje: |
+          **¡AUMENTO DE DIFICULTAD!**
+          AUMENTO DE DIFICULTAD Los Gatos Supernova ahora son Gatos Gálacticos.
+          Ya no explotan, pero pueden invocar cualquier mob de Permadeath al morir, incluido un Gato Supernova o un Permadeath Demon.
+      - Imagenes:
+          - 'https://i.imgur.com/f17gKSN.png'
+      - Mensaje: |
+          **¡AUMENTO DE DIFICULTAD!**
+          Bacalao de la Muerte: Espada de madera con Sharpness L (50) y Knockback C (100).
+      - Imagenes:
+          - 'https://i.imgur.com/yGv2RJa.png'
+      - Mensaje: |
+          **¡AUMENTO DE DIFICULTAD!** 
+          - Esqueleto guerrero: Esqueleto Full Diamante Protección IV (4) con 50 corazones.
+          - Esqueleto Infernal: Esqueleto Full Hierro, Diamond Axe con Fire Aspect XX (20) y Sharpness XXV (25), con 20 corazones.
+          - Esqueleto Asesino: Esqueleto Full Oro con Speed II (2), Crossbow con Sharpness L (50), y con 20 corazones.
+          - Esqueleto Táctico: Wither Skeleton Full Mayas, Bow con Punch L (50) y PowerXXX (40), y con 20 corazones.
+          - Esqueleto Pesadilla: wither Skeleton Full Cuero, Bow LX (60), y con 90 corazones.
+      - Imagenes:
+          - 'https://i.imgur.com/2YwXJAo.png'
+      - Mensaje: |
+          **¡ARMADURA DE NETHERITE INFERNAL!**
+          Puedes conseguir una mejor armadura consiguiendo 4 bloques de netherite infernal y poniéndolos en forma de cruz en una mesa de crafteo con tu armadura de netherite que deseas mejorar.
+      - Imagenes:
+          - 'https://i.imgur.com/i5lIjVr.png'
+      - Mensaje: |
+          **¡RESET DEL DEATH TRAIN!**
+          Cada día que pasa aumenta 30min en ves de 60min.
+          Todos los mobs tienen Fuerza II (2) Velocidad II (2) y Resistencia II (2).
+          Durante los Death Train el mundo se convierte en modo UHC (No se regenera vida naturalmente).
+      - Imagenes:
+          - 'https://i.imgur.com/ca0bvEl.png'
+      - Mensaje: |
+          **¡CAMBIOS DE DIFICULTAD SORPRESA!**
+      - Imagenes:
+          - 'https://i.imgur.com/TIvClQg.png'
+      - Mensaje: |
+          **¡MONSTRUOS! ¡DEMONIOS! ¡Y AHORA GIGANTES!**
+      - Imagenes:
+          - 'https://i.imgur.com/e0BJAUP.png'
+      - Mensaje: |
+          **¡THE BEGINNING, LA NUEVA DIMENSIÓN, EL MEJOR SITIO PARA SER PERMABANEADO!**
+      - Imagenes:
+          - 'https://i.imgur.com/EloJ1O1.png'
+      - Mensaje: |
+          **¡HERRAMIENTAS DE NETHERITE YA DISPONIBLES!**
+          Las herramientas evitan que quitar bloques te haga daño, y la Espada y la Hacha hacen más daño.
+      - Imagenes:
+          - 'https://i.imgur.com/16UXOqe.png'
+      - Mensaje: |
+          **¡CAMBIOS SORPRESAS!**
+          Wither Skeleton Emperador: Wither Skeleton Full Oro con: Bow Power C (100) y Punch V (5), 40 corazones.
+          Drop: 50% Espada de Netherite.
+          1 de cada 50 Wither Skeletons de un Nether Fortress son emperadores.
+          Las flechas no le hacen daño.
+      - Imagenes:
+          - 'https://i.imgur.com/IxHGciI.png'
+
+          
   60:
     Enabled: true
     Mensaje: |
-      **¡AUMENTO DE DIFICULTAD (Día 60)!**
+      # **¡AUMENTO DE DIFICULTAD (Día 60)!**
       You're dead now.
       - Ahora se puede craftear las Elytras de netherite infernal.
       - Cuando se usa un totem ahora se gastan 3. Tienen 7% de fallar.

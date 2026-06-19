@@ -375,4 +375,16 @@ public class NMSHandlerImpl implements NMSHandler {
          * Esto hay que cambiarlo XD
          */
     }
+
+    @Override
+    public float getBlastResistance(org.bukkit.Material material) {
+        if (!material.isBlock()) return 0.0f;
+        net.minecraft.server.v1_16_R3.Block nmsBlock = org.bukkit.craftbukkit.v1_16_R3.util.CraftMagicNumbers.getBlock(material);
+        return nmsBlock != null ? nmsBlock.getDurability() : 0.0f;
+    }
+
+    @Override
+    public int getMinHeight(org.bukkit.World world) {
+        return 0;
+    }
 }
