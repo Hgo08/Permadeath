@@ -240,12 +240,20 @@ public class AsyncExplosion {
 
                     List<Long> chunkKeys = new ArrayList<>(blocksByChunk.keySet());
                     final boolean dynamicBatch = Main.getInstance().getConfig().getBoolean("Toggles.Gatos-Supernova.Dynamic-Batch-Size", true);
-                    final int initialChunksPerTick = Main.getInstance().getConfig().getInt("Toggles.Gatos-Supernova.Chunks-Por-Tick", 1);
+                    
+                    // Determine processing mode: Check if Chunks-Por-Tick is configured and > 0, otherwise use Bloques-Por-Tick
+                    final int initialChunksPerTick = Main.getInstance().getConfig().getInt("Toggles.Gatos-Supernova.Chunks-Por-Tick", -1);
+                    final int initialBlocksPerTick = Main.getInstance().getConfig().getInt("Toggles.Gatos-Supernova.Bloques-Por-Tick", -1);
+                    
+                    final boolean useChunksMode = initialChunksPerTick > 0;
 
                     new BukkitRunnable() {
                         int chunkIndex = 0;
+                        int blockIndexInChunk = 0;
                         long totalBlocksTime = 0;
-                        int currentChunksPerTick = initialChunksPerTick;
+                        
+                        int currentChunksPerTick = useChunksMode ? initialChunksPerTick : 1;
+                        int currentBlocksPerTick = !useChunksMode && initialBlocksPerTick > 0 ? initialBlocksPerTick : 2000;
 
                         @Override
                         public void run() {
@@ -255,36 +263,77 @@ public class AsyncExplosion {
                             }
 
                             long batchStart = System.currentTimeMillis();
-                            int chunksProcessed = 0;
                             List<Block> changedBlocks = new ArrayList<>();
 
-                            while (chunkIndex < chunkKeys.size() && chunksProcessed < currentChunksPerTick) {
-                                long chunkKey = chunkKeys.get(chunkIndex);
-                                int cx = (int) (chunkKey >> 32);
-                                int cz = (int) chunkKey;
+                            if (useChunksMode) {
+                                int chunksProcessed = 0;
+                                while (chunkIndex < chunkKeys.size() && chunksProcessed < currentChunksPerTick) {
+                                    long chunkKey = chunkKeys.get(chunkIndex);
+                                    int cx = (int) (chunkKey >> 32);
+                                    int cz = (int) chunkKey;
 
-                                List<BlockPos> chunkBlocks = blocksByChunk.get(chunkKey);
+                                    List<BlockPos> chunkBlocks = blocksByChunk.get(chunkKey);
 
-                                if (!skipUnloaded || world.isChunkLoaded(cx, cz)) {
-                                    for (BlockPos pos : chunkBlocks) {
-                                        Block block = world.getBlockAt(pos.x, pos.y, pos.z);
+                                    if (!skipUnloaded || world.isChunkLoaded(cx, cz)) {
+                                        for (BlockPos pos : chunkBlocks) {
+                                            Block block = world.getBlockAt(pos.x, pos.y, pos.z);
 
-                                        if (block.getType() != Material.AIR && block.getType() != Material.BEDROCK && block.getType() != Material.BARRIER) {
-                                            block.setType(Material.AIR, true);
-                                            changedBlocks.add(block);
+                                            if (block.getType() != Material.AIR && block.getType() != Material.BEDROCK && block.getType() != Material.BARRIER) {
+                                                block.setType(Material.AIR, true);
+                                                changedBlocks.add(block);
 
-                                            if (placeFire && Math.random() < 0.3333) {
-                                                Block below = block.getRelative(BlockFace.DOWN);
-                                                if (below.getType().isSolid()) {
-                                                    block.setType(Material.FIRE, true);
-                                                    changedBlocks.add(block);
+                                                if (placeFire && Math.random() < 0.3333) {
+                                                    Block below = block.getRelative(BlockFace.DOWN);
+                                                    if (below.getType().isSolid()) {
+                                                        block.setType(Material.FIRE, true);
+                                                        changedBlocks.add(block);
+                                                    }
                                                 }
                                             }
                                         }
                                     }
+                                    chunkIndex++;
+                                    chunksProcessed++;
                                 }
-                                chunkIndex++;
-                                chunksProcessed++;
+                            } else {
+                                int blocksProcessed = 0;
+                                while (chunkIndex < chunkKeys.size() && blocksProcessed < currentBlocksPerTick) {
+                                    long chunkKey = chunkKeys.get(chunkIndex);
+                                    int cx = (int) (chunkKey >> 32);
+                                    int cz = (int) chunkKey;
+
+                                    List<BlockPos> chunkBlocks = blocksByChunk.get(chunkKey);
+
+                                    if (!skipUnloaded || world.isChunkLoaded(cx, cz)) {
+                                        while (blockIndexInChunk < chunkBlocks.size() && blocksProcessed < currentBlocksPerTick) {
+                                            BlockPos pos = chunkBlocks.get(blockIndexInChunk++);
+                                            Block block = world.getBlockAt(pos.x, pos.y, pos.z);
+
+                                            if (block.getType() != Material.AIR && block.getType() != Material.BEDROCK && block.getType() != Material.BARRIER) {
+                                                block.setType(Material.AIR, true);
+                                                changedBlocks.add(block);
+
+                                                if (placeFire && Math.random() < 0.3333) {
+                                                    Block below = block.getRelative(BlockFace.DOWN);
+                                                    if (below.getType().isSolid()) {
+                                                        block.setType(Material.FIRE, true);
+                                                        changedBlocks.add(block);
+                                                    }
+                                                }
+                                            }
+                                            blocksProcessed++;
+                                        }
+                                    } else {
+                                        // Skip unloaded chunk blocks
+                                        blocksProcessed += (chunkBlocks.size() - blockIndexInChunk);
+                                        blockIndexInChunk = chunkBlocks.size();
+                                    }
+
+                                    if (blockIndexInChunk >= chunkBlocks.size()) {
+                                        chunkIndex++;
+                                        blockIndexInChunk = 0;
+                                    }
+                                }
                             }
 
                             // Trigger physics and state updates to ensure fluid/foliage updates
@@ -297,10 +346,18 @@ public class AsyncExplosion {
 
                             // Dynamically adjust batch size if enabled
                             if (dynamicBatch) {
-                                if (batchDuration > 25) { // Slow tick (above 25ms execution time)
-                                    currentChunksPerTick = Math.max(1, (int)(currentChunksPerTick * 0.7));
-                                } else if (batchDuration < 10) { // Fast tick
-                                    currentChunksPerTick = Math.min(100, (int)(currentChunksPerTick * 1.2 + 1));
+                                if (useChunksMode) {
+                                    if (batchDuration > 25) {
+                                        currentChunksPerTick = Math.max(1, (int)(currentChunksPerTick * 0.7));
+                                    } else if (batchDuration < 10) {
+                                        currentChunksPerTick = Math.min(100, (int)(currentChunksPerTick * 1.2 + 1));
+                                    }
+                                } else {
+                                    if (batchDuration > 25) {
+                                        currentBlocksPerTick = Math.max(100, (int)(currentBlocksPerTick * 0.7));
+                                    } else if (batchDuration < 10) {
+                                        currentBlocksPerTick = Math.min(20000, (int)(currentBlocksPerTick * 1.2));
+                                    }
                                 }
                             }
 

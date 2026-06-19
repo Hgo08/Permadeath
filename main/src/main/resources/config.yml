@@ -111,8 +111,10 @@ Toggles:
     OptimizedAsyncExplosions: true
     # Radio máximo en bloques a escanear chunks para la explosión (menor radio = cero lag inicial)
     Snapshot-Radius: 80
-    # Chunks a procesar por tick (menor número = destrucción más fluida)
-    Chunks-Por-Tick: 100000
+    # Chunks a procesar por tick (si es mayor que 0, se usará este modo; de lo contrario, se usará Bloques-Por-Tick)
+    Chunks-Por-Tick: 1
+    # Bloques a procesar por tick (se usa solo si Chunks-Por-Tick está en -1 o 0)
+    Bloques-Por-Tick: 2000
     # Evitar procesar/modificar bloques en chunks no cargados (evita tirones al cargar chunks)
     Skip-Unloaded-Chunks: false
     # Distancia máxima desde el centro en la que se procesarán bloques
