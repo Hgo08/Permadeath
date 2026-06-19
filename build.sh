@@ -11,8 +11,6 @@ docker run --rm \
 # Copiar el JAR generado a la carpeta de plugins del servidor
 mkdir -p server/plugins
 cp dist/target/dist-1.3.jar server/plugins/Permadeath.jar
-echo "Compilado y copiado a server/plugins/Permadeath.jar con éxito, iniciando servidor..."
-cd server
-./start.sh
+echo "Compilado y copiado a server/plugins/Permadeath.jar con éxito"
 
 
