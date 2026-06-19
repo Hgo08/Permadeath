@@ -231,43 +231,60 @@ public class AsyncExplosion {
 
                 // Destrucción de bloques
                 if (breakBlocks && !blocksToDestroy.isEmpty()) {
-                    List<BlockPos> blockList = new ArrayList<>(blocksToDestroy);
+                    // Group blocks by chunk coordinates to process them per-chunk
+                    Map<Long, List<BlockPos>> blocksByChunk = new HashMap<>();
+                    for (BlockPos pos : blocksToDestroy) {
+                        long chunkKey = getChunkKey(pos.x >> 4, pos.z >> 4);
+                        blocksByChunk.computeIfAbsent(chunkKey, k -> new ArrayList<>()).add(pos);
+                    }
+
+                    List<Long> chunkKeys = new ArrayList<>(blocksByChunk.keySet());
                     final boolean dynamicBatch = Main.getInstance().getConfig().getBoolean("Toggles.Gatos-Supernova.Dynamic-Batch-Size", true);
-                    final int initialBatchSize = Main.getInstance().getConfig().getInt("Toggles.Gatos-Supernova.Bloques-Por-Tick", 2000);
+                    final int initialChunksPerTick = Main.getInstance().getConfig().getInt("Toggles.Gatos-Supernova.Chunks-Por-Tick", 1);
 
                     new BukkitRunnable() {
-                        int index = 0;
+                        int chunkIndex = 0;
                         long totalBlocksTime = 0;
-                        int currentBatchSize = initialBatchSize;
+                        int currentChunksPerTick = initialChunksPerTick;
 
                         @Override
                         public void run() {
+                            if (chunkIndex >= chunkKeys.size()) {
+                                cancel();
+                                return;
+                            }
+
                             long batchStart = System.currentTimeMillis();
-                            int count = 0;
+                            int chunksProcessed = 0;
                             List<Block> changedBlocks = new ArrayList<>();
 
-                            while (index < blockList.size() && count < currentBatchSize) {
-                                BlockPos pos = blockList.get(index++);
-                                int cx = pos.x >> 4;
-                                int cz = pos.z >> 4;
+                            while (chunkIndex < chunkKeys.size() && chunksProcessed < currentChunksPerTick) {
+                                long chunkKey = chunkKeys.get(chunkIndex);
+                                int cx = (int) (chunkKey >> 32);
+                                int cz = (int) chunkKey;
+
+                                List<BlockPos> chunkBlocks = blocksByChunk.get(chunkKey);
 
                                 if (!skipUnloaded || world.isChunkLoaded(cx, cz)) {
-                                    Block block = world.getBlockAt(pos.x, pos.y, pos.z);
+                                    for (BlockPos pos : chunkBlocks) {
+                                        Block block = world.getBlockAt(pos.x, pos.y, pos.z);
 
-                                    if (block.getType() != Material.AIR && block.getType() != Material.BEDROCK && block.getType() != Material.BARRIER) {
-                                        block.setType(Material.AIR, true);
-                                        changedBlocks.add(block);
+                                        if (block.getType() != Material.AIR && block.getType() != Material.BEDROCK && block.getType() != Material.BARRIER) {
+                                            block.setType(Material.AIR, true);
+                                            changedBlocks.add(block);
 
-                                        if (placeFire && Math.random() < 0.3333) {
-                                            Block below = block.getRelative(BlockFace.DOWN);
-                                            if (below.getType().isSolid()) {
-                                                block.setType(Material.FIRE, true);
-                                                changedBlocks.add(block);
+                                            if (placeFire && Math.random() < 0.3333) {
+                                                Block below = block.getRelative(BlockFace.DOWN);
+                                                if (below.getType().isSolid()) {
+                                                    block.setType(Material.FIRE, true);
+                                                    changedBlocks.add(block);
+                                                }
                                             }
                                         }
                                     }
                                 }
-                                count++;
+                                chunkIndex++;
+                                chunksProcessed++;
                             }
 
                             // Trigger physics and state updates to ensure fluid/foliage updates
@@ -281,13 +298,13 @@ public class AsyncExplosion {
                             // Dynamically adjust batch size if enabled
                             if (dynamicBatch) {
                                 if (batchDuration > 25) { // Slow tick (above 25ms execution time)
-                                    currentBatchSize = Math.max(100, (int)(currentBatchSize * 0.7));
+                                    currentChunksPerTick = Math.max(1, (int)(currentChunksPerTick * 0.7));
                                 } else if (batchDuration < 10) { // Fast tick
-                                    currentBatchSize = Math.min(10000, (int)(currentBatchSize * 1.2));
+                                    currentChunksPerTick = Math.min(100, (int)(currentChunksPerTick * 1.2 + 1));
                                 }
                             }
 
-                            if (index >= blockList.size()) {
+                            if (chunkIndex >= chunkKeys.size()) {
                                 String finalDebugMsg = "§e[Permadeath-Explosion] Destrucción completada. Tiempo total de procesamiento de bloques: " + totalBlocksTime + "ms";
                                 if (debugLog) {
                                     Bukkit.getConsoleSender().sendMessage(finalDebugMsg);

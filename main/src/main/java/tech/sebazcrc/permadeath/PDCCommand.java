@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import tech.sebazcrc.permadeath.util.AsyncExplosion;
 import tech.sebazcrc.permadeath.util.NMS;
 import tech.sebazcrc.permadeath.util.item.InfernalNetherite;
 import tech.sebazcrc.permadeath.util.item.NetheriteArmor;
@@ -189,9 +190,18 @@ public class PDCCommand implements CommandExecutor {
                     if (args.length == 1) {
                         player.sendMessage(TextUtils.format(instance.prefix + "&eEste comando te servirá en nuestro soporte si tienes problemas"));
                         player.sendMessage(TextUtils.format("&b&nSub comandos:"));
-                        player.sendMessage(TextUtils.format("&7/pdc debug info&f&l- &eInformación importante acerca del plugin, suele usarse en soporte."));
-                        player.sendMessage(TextUtils.format("&7/pdc debug generate_beginning&f&l- &eSi tienes problemas con The Beginning puedes generarlo manualmente."));
-                        //player.sendMessage(instance.format("&7/pdc debug &f&l- &e."));
+                        player.sendMessage(TextUtils.format("&7/pdc debug info &f&l- &eMuestra información detallada para soporte."));
+                        player.sendMessage(TextUtils.format("&7/pdc debug generate_beginning &f&l- &eGenera el portal de The Beginning de forma manual."));
+                        player.sendMessage(TextUtils.format("&7/pdc debug toggle &f&l- &eAlterna el estado del modo debug general."));
+                        player.sendMessage(TextUtils.format("&7/pdc debug emptyWorld &f&l- &eCrea y te teletransporta a un mundo vacío."));
+                        player.sendMessage(TextUtils.format("&7/pdc debug module &f&l- &eSpawnea un módulo de muerte."));
+                        player.sendMessage(TextUtils.format("&7/pdc debug health &f&l- &eMuestra tu vida máxima actual."));
+                        player.sendMessage(TextUtils.format("&7/pdc debug events &f&l- &eMuestra el estado de los eventos activos."));
+                        player.sendMessage(TextUtils.format("&7/pdc debug hyper &f&l- &eVerifica si has consumido manzanas hyper."));
+                        player.sendMessage(TextUtils.format("&7/pdc debug removegaps &f&l- &eElimina el estado de manzanas hyper consumidas."));
+                        player.sendMessage(TextUtils.format("&7/pdc debug explosiondebug &f&l- &eAlterna el logging debug para explosiones de Supernova."));
+                        player.sendMessage(TextUtils.format("&7/pdc debug explosionconfig &f&l- &eRecarga la configuración de explosiones."));
+                        player.sendMessage(TextUtils.format("&7/pdc debug generate_explosion &f&l- &eGenera una explosión supernova en tu ubicación actual."));
                         return false;
                     }
 
@@ -218,6 +228,13 @@ public class PDCCommand implements CommandExecutor {
                     } else if (args[1].equalsIgnoreCase("explosionconfig")) {
                         instance.reloadConfig();
                         player.sendMessage("§a[Permadeath-Explosion] Configuración de explosión recargada desde el disco.");
+
+                    } else if (args[1].equalsIgnoreCase("generate_explosion")) {
+                        float power = (float) instance.getConfig().getDouble("Toggles.Gatos-Supernova.Explosion-Power", 200.0);
+                        boolean breakBlocks = instance.getConfig().getBoolean("Toggles.Gatos-Supernova.Destruir-Bloques", true);
+                        boolean placeFire = instance.getConfig().getBoolean("Toggles.Gatos-Supernova.Fuego", false);
+                        p.sendMessage("§a[Permadeath-Explosion] Generando explosión supernova (Poder: " + power + ", Rompe Bloques: " + breakBlocks + ", Fuego: " + placeFire + ")...");
+                        AsyncExplosion.explode(p.getWorld(), p.getLocation(), power, breakBlocks, placeFire);
 
                     } else if (args[1].equalsIgnoreCase("generate_beginning")) {
 

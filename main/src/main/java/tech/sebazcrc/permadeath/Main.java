@@ -873,7 +873,7 @@ public final class Main extends JavaPlugin implements Listener {
         c.set("Toggles.Gatos-Supernova.Explosion-Power", 200);
         c.set("Toggles.Gatos-Supernova.OptimizedAsyncExplosions", true);
         c.set("Toggles.Gatos-Supernova.Snapshot-Radius", 80);
-        c.set("Toggles.Gatos-Supernova.Bloques-Por-Tick", 2000);
+        c.set("Toggles.Gatos-Supernova.Chunks-Por-Tick", 1);
         c.set("Toggles.Gatos-Supernova.Skip-Unloaded-Chunks", true);
         c.set("Toggles.Gatos-Supernova.Max-Processing-Distance", 256.0);
         c.set("Toggles.Gatos-Supernova.Dynamic-Batch-Size", true);
