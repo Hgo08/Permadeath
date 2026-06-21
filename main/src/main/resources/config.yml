@@ -27,6 +27,8 @@ AntiAFK:
 # Personalización:
 Toggles:
   DefaultDeathSoundsEnabled: true
+  # ¿Deseas que se muestre el mensaje de bienvenida del plugin al entrar?
+  Welcome-Message: true
   OptifineItems: false
   Netherite:
     # Probabilidad de Drop de Netherite
