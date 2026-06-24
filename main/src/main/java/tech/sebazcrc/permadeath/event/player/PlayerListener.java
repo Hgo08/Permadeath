@@ -237,7 +237,7 @@ public class PlayerListener implements Listener {
         scheduler.runTaskLater(Main.instance, new Runnable() {
             @Override
             public void run() {
-                boolean isban = (doEnableOP ? !p.hasPermission("permadeathcore.banoverride") : true);
+                boolean isban = (doEnableOP ? true : !p.hasPermission("permadeathcore.banoverride"));
                 if (Main.instance.getConfig().getBoolean("ban-enabled") && isban) {
                     if (off.isOnline()) {
                         ((Player) off).kickPlayer(ChatColor.RED + "Has sido PERMABANEADO");
@@ -404,7 +404,7 @@ public class PlayerListener implements Listener {
 
                     Main.getInstance().getMessages().sendConsole(Main.getInstance().getMessages().getMsgForConsole("Sleep").replace("%player%", player.getName()));
 
-                    player.damage(0.1);
+                    player.wakeup(true);
                 }
             }, 60L);
 
@@ -444,7 +444,7 @@ public class PlayerListener implements Listener {
                         Main.getInstance().getMessages().sendConsole(Main.getInstance().getMessages().getMsgForConsole("Sleep").replace("%player%", player.getName()));
 
                         sent.add(player);
-                        player.damage(0.1);
+                        player.wakeup(true);
                     }
                 }
             }, 60L);
@@ -484,7 +484,7 @@ public class PlayerListener implements Listener {
                                 if (all.isSleeping()) {
 
                                     all.setStatistic(Statistic.TIME_SINCE_REST, 0);
-                                    all.damage(0.1);
+                                    all.wakeup(true);
                                     Bukkit.broadcastMessage(TextUtils.format(Objects.requireNonNull(Main.instance.getConfig().getString("Server-Messages.Sleep").replace("%player%", all.getName()))));
                                 }
                             }
@@ -508,7 +508,7 @@ public class PlayerListener implements Listener {
 
                 for (Player all : Bukkit.getOnlinePlayers()) {
                     all.setStatistic(Statistic.TIME_SINCE_REST, 0);
-                    all.damage(0.1);
+                    all.wakeup(true);
                     Bukkit.broadcastMessage(TextUtils.format(Objects.requireNonNull(Main.instance.getConfig().getString("Server-Messages.Sleep").replace("%player%", all.getName()))));
                 }
 
