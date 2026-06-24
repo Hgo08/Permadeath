@@ -38,5 +38,6 @@ build/
 .DS_Store
 
 ### Server ###
-server/
+server*
 build*
+resetServer.sh

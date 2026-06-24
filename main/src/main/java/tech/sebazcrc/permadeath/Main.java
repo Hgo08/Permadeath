@@ -93,6 +93,7 @@ public final class Main extends JavaPlugin implements Listener {
     private Map<Integer, Boolean> registeredDays = new HashMap<>();
     private ArrayList<Player> doneEffectPlayers = new ArrayList<>();
     private boolean loaded = false;
+    private boolean deathStormActive = false;
     private boolean alreadyRegisteredChanges = false;
     private ShellEvent shulkerEvent;
     private LifeOrbEvent orbEvent;
@@ -101,6 +102,14 @@ public final class Main extends JavaPlugin implements Listener {
     public static boolean optifineItemsEnabled() {
         if (instance == null) return false;
         return instance.getConfig().getBoolean("Toggles.OptifineItems");
+    }
+
+    public boolean isDeathStormActive() {
+        return deathStormActive;
+    }
+
+    public void setDeathStormActive(boolean active) {
+        this.deathStormActive = active;
     }
 
     @Override
@@ -296,7 +305,7 @@ public final class Main extends JavaPlugin implements Listener {
                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(actionBar));
 
             } else {
-                if (world.hasStorm()) {
+                if (isDeathStormActive() && world.hasStorm()) {
                     String msg = getMessages().getMessageByPlayer("Server-Messages.ActionBarMessage", player.getName()).replace("%tiempo%", time);
                     player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(msg));
                 }

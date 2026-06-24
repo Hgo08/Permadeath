@@ -132,9 +132,13 @@ public class PlayerListener implements Listener {
 
             if (weather) {
                 Main.instance.world.setWeatherDuration(inc * 20);
+                Main.instance.world.setThunderDuration(inc * 20);
             } else {
                 Main.instance.world.setWeatherDuration(intsTicks * 20);
+                Main.instance.world.setThunderDuration(intsTicks * 20);
             }
+
+            Main.instance.setDeathStormActive(true);
 
             if (Main.instance.getDay() >= 25) {
                 for (World w : Bukkit.getWorlds()) {
@@ -317,8 +321,10 @@ public class PlayerListener implements Listener {
 
         if (event.getBedEnterResult() != PlayerBedEnterEvent.BedEnterResult.OK) {
 
-            event.getPlayer().sendMessage(TextUtils.format("&cNo puedes dormir ahora."));
-            return;
+            if (!event.getPlayer().getWorld().isThundering()) {
+                event.getPlayer().sendMessage(TextUtils.format("&cNo puedes dormir ahora."));
+                return;
+            }
         }
 
         if (Main.getInstance().getDay() >= 20) {
@@ -342,6 +348,12 @@ public class PlayerListener implements Listener {
             return;
         }
 
+        if (Main.instance.isDeathStormActive()) {
+            event.getPlayer().sendMessage(TextUtils.format("&cNo puedes dormir mientras la tormenta de muerte esté activa."));
+            event.setCancelled(true);
+            return;
+        }
+
         Player player = event.getPlayer();
         long time = Main.instance.world.getTime();
 
@@ -359,10 +371,43 @@ public class PlayerListener implements Listener {
             return;
         }
 
-        if (time < 13000) {
+        if (time < 13000 && !player.getWorld().isThundering()) {
 
             player.sendMessage(TextUtils.format("&cSolo puedes dormir de noche."));
             event.setCancelled(true);
+            return;
+        }
+
+        if (time < 13000 && player.getWorld().isThundering()) {
+
+            Bukkit.getServer().getScheduler().runTaskLater(Main.instance, new Runnable() {
+
+                @Override
+                public void run() {
+
+                    event.getPlayer().getWorld().setTime(0L);
+
+                    World w = event.getPlayer().getWorld();
+                    if (w.hasStorm() && !Main.instance.isDeathStormActive()) {
+                        w.setStorm(false);
+                        w.setThundering(false);
+                    }
+
+                    player.setStatistic(Statistic.TIME_SINCE_REST, 0);
+
+                    Bukkit.getOnlinePlayers().forEach(p -> {
+
+                        String msg = Main.getInstance().getMessages().getMessage("Sleep", p).replace("%player%", player.getName());
+
+                        p.sendMessage(msg);
+                    });
+
+                    Main.getInstance().getMessages().sendConsole(Main.getInstance().getMessages().getMsgForConsole("Sleep").replace("%player%", player.getName()));
+
+                    player.damage(0.1);
+                }
+            }, 60L);
+
             return;
         }
 
@@ -377,6 +422,12 @@ public class PlayerListener implements Listener {
 
                     event.getPlayer().getWorld().setTime(0L);
                     player.setStatistic(Statistic.TIME_SINCE_REST, 0);
+
+                    World w = event.getPlayer().getWorld();
+                    if (w.hasStorm() && !Main.instance.isDeathStormActive()) {
+                        w.setWeatherDuration(0);
+                        w.setThunderDuration(0);
+                    }
 
                     if (!sent.contains(player)) {
 
@@ -423,6 +474,12 @@ public class PlayerListener implements Listener {
 
                             event.getPlayer().getWorld().setTime(0L);
 
+                            World w = event.getPlayer().getWorld();
+                            if (w.hasStorm() && !Main.instance.isDeathStormActive()) {
+                                w.setWeatherDuration(0);
+                                w.setThunderDuration(0);
+                            }
+
                             for (Player all : Bukkit.getOnlinePlayers()) {
                                 if (all.isSleeping()) {
 
@@ -442,6 +499,12 @@ public class PlayerListener implements Listener {
             if (globalSleeping.size() == Bukkit.getOnlinePlayers().size()) {
 
                 event.getPlayer().getWorld().setTime(0L);
+
+                World w = event.getPlayer().getWorld();
+                if (w.hasStorm() && !Main.instance.isDeathStormActive()) {
+                    w.setWeatherDuration(0);
+                    w.setThunderDuration(0);
+                }
 
                 for (Player all : Bukkit.getOnlinePlayers()) {
                     all.setStatistic(Statistic.TIME_SINCE_REST, 0);

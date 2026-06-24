@@ -16,12 +16,18 @@ public class WorldEvents implements Listener {
     public void onWeatherStorm(WeatherChangeEvent event) {
 
         if (!event.toWeatherState()) {
-            for (Player p : Bukkit.getOnlinePlayers()) {
-                String msg = Main.prefix + Main.getInstance().getMessages().getMessage("StormEnd", p);
-                p.sendMessage(msg);
+            boolean wasDeathStorm = Main.instance.isDeathStormActive();
+            Main.instance.setDeathStormActive(false);
+
+            if (wasDeathStorm) {
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    String msg = Main.prefix + Main.getInstance().getMessages().getMessage("StormEnd", p);
+                    p.sendMessage(msg);
+                }
+                Main.getInstance().getMessages().sendConsole(Main.getInstance().getMessages().getMsgForConsole("StormEnd"));
             }
-            Main.getInstance().getMessages().sendConsole(Main.getInstance().getMessages().getMsgForConsole("StormEnd"));
-            if (Main.instance.getDay() >= 50) {
+
+            if (wasDeathStorm && Main.instance.getDay() >= 50) {
                 if (Main.instance.getBeginningManager() != null) {
                     Main.instance.getBeginningManager().setClosed(false);
                 }

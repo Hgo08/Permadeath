@@ -77,7 +77,7 @@ Toggles:
   # ¿Deseas que hayan cabezas de jugador al morir?
   Player-Skulls: true
   # ¿Deseas que los operadores también sean baneados al morir?
-  Op-Ban: true
+  OP-Ban: true
   # ¿Deseas que las arañas tengan efectos de poción?
   Spider-Effect: true
   # ¿Deseas activar el cambio polémico de Mikecrack en el día 60?
